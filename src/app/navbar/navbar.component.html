@@ -1,0 +1,16 @@
+<mat-toolbar style="background-color: #192655; color: white; display: flex; justify-content: space-between;">
+    <div>
+        <a mat-button type="button" mat-button (click)="toggleSidebar()">
+            <mat-icon aria-hidden="false" fontIcon="home"></mat-icon>
+        </a>
+    </div>
+    <div>
+        <a mat-button routerLink="/home">{{appTitle}}</a>
+    </div>
+    <div>
+        <a mat-button type="button" mat-button>
+            <span *ngIf="this.isLogged()" (click)="this.logOut()">Se déconnecter</span>
+            <span *ngIf="!this.isLogged()" (click)="showAuth()">Se connecter</span>
+        </a>
+    </div>
+</mat-toolbar>

@@ -1,0 +1,15 @@
+<mat-sidenav-container>
+    <mat-sidenav #sidenav mode="side" [opened]="sidebarToggleService.isOpen">
+        <div>
+            <ul>
+                <li *ngFor="let m of menu" routerLink="{{m.link}}" (click)="sidebarToggleService.toggleSidebar();">
+                    <a>{{m.lib}}</a>
+                </li>
+            </ul>
+        </div>
+    </mat-sidenav>
+
+    <mat-sidenav-content style="height: 100vh; padding-top: 64px; margin-bottom: -64px; padding: 0px 25%;">
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

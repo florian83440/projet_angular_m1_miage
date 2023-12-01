@@ -1,0 +1,37 @@
+<!-- <app-add-assignment (nouvelAssignment)="onNouvelAssignment($event)">
+
+</app-add-assignment> -->
+
+<main class="container" style="padding: 15px;">
+  <button mat-flat-button color="accent"
+  routerLink="/add-assignment"
+  class="btnAjout"
+  >
+  <mat-icon>add_circle_outline</mat-icon>
+    Ajouter Assignment
+  </button>
+  <h3>Liste des devoirs :</h3>
+
+  <mat-list *ngFor="let a of getAssignements()">
+    <nav>
+        <a routerLink="/assignment/{{a.id}}" style="text-decoration: none;">
+        <h3 mat-subheader style="color: black;">{{ a.dateDeRendu | date }}</h3>
+        <mat-list-item (click)="assignmentClique(a)">
+        <p *ngIf="a.rendu" appRendu>{{ a.nom }} a été RENDU.</p>
+        <p *ngIf="!a.rendu" appNonRendu>{{ a.nom }}, N'A PAS ETE RENDU.</p>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        </a>
+    </nav>
+  </mat-list>
+
+  <!-- <app-assignment-detail 
+    [assignmentTransmis]="getAssignementSelectionne()"
+    (deleteAssignment)="onDeleteAssignment($event)"
+    >   -->
+    <!-- <app-assignment-detail 
+    [assignmentTransmis]="getAssignementSelectionne()"
+    (deleteAssignment)="onDeleteAssignment($event)"
+    >
+  </app-assignment-detail> -->
+</main>
