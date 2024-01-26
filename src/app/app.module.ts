@@ -8,6 +8,8 @@ import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+import {HttpClientModule} from "@angular/common/http";
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -29,11 +31,13 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 
 import { RouterModule, Routes } from '@angular/router';
 import { EditAssignmentComponent } from './edit-assignment/edit-assignment.component';
-import { LoginService } from './shared/login.service';
 import { loginGuard } from './shared/login.guard';
 import { HomeComponent } from './home/home.component';
 import { AuthComponent } from './auth/auth.component';
 import { UserComponent } from './user/user.component';
+import {MatTableModule} from "@angular/material/table";
+import { TeacherComponent } from './teacher/teacher.component';
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 const routes: Routes = [
     {
@@ -63,6 +67,10 @@ const routes: Routes = [
     },{
         'path': 'auth',
         component: AuthComponent
+    },
+    {
+        'path': 'teacher',
+        component: TeacherComponent
     }
 ]
 
@@ -79,7 +87,8 @@ const routes: Routes = [
         EditAssignmentComponent,
         HomeComponent,
         AuthComponent,
-        UserComponent
+        UserComponent,
+        TeacherComponent
     ],
     imports: [
         BrowserModule,
@@ -88,9 +97,17 @@ const routes: Routes = [
         MatCardModule, MatFormFieldModule, MatInputModule,
         FormsModule, MatDatepickerModule, MatNativeDateModule,
         MatListModule, MatCheckboxModule, MatToolbarModule,
-        MatSidenavModule, NgIf, RouterModule.forRoot(routes)
+        MatSidenavModule, NgIf, RouterModule.forRoot(routes),
+        MatSnackBarModule, MatTableModule, HttpClientModule, MatPaginatorModule
     ],
     providers: [],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
+export class Snackbar {
+    constructor(private _snackBar: MatSnackBar) {}
+
+    openSnackBar(message: string, action: string) {
+        this._snackBar.open(message, action);
+    }
+}

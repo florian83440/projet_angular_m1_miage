@@ -1,29 +1,33 @@
-<mat-card *ngIf="assignmentTransmis">
-  <mat-card-content>
-    <mat-card-title>
-      {{ assignmentTransmis.nom }}
-    </mat-card-title>
-    <mat-card-subtitle>
-      {{assignmentTransmis.dateDeRendu | date: 'dd/MM/yyyy'}}
-    </mat-card-subtitle>
-    <mat-checkbox *ngIf="!assignmentTransmis.rendu"
-      (click)="assignmentTransmis.rendu=true"
-    >
-      Rendu
-    </mat-checkbox>
-    <br>
-    <nav>
-        <a>
-            <button mat-raised-button color="primary"
-            [disabled]="!this.isAdmin()"
-            (click)="edit()">EDIT</button>
-        </a>
-        &nbsp;
-        <a>
-            <button mat-raised-button color="warn"
-            [disabled]="!this.isAdmin()"
-            (click)="delete()">DELETE</button>
-        </a>
-    </nav>
-  </mat-card-content>
-</mat-card>
+<h3>Détails du devoir :</h3>
+<div style="width: 50%; margin-left: 25%;">
+  <mat-card *ngIf="assignmentTransmis">
+      <mat-card-content>
+        <mat-card-title>
+          {{ assignmentTransmis.nom }}
+        </mat-card-title>
+        <mat-card-subtitle>
+          {{assignmentTransmis.dateDeRendu | date: 'dd/MM/yyyy'}}
+        </mat-card-subtitle>
+        <mat-checkbox *ngIf="!assignmentTransmis.rendu"
+          (click)="assignmentTransmis.rendu=true"
+        >
+          Rendu
+        </mat-checkbox>
+        <br>
+        <nav>
+            <a>
+                <button mat-raised-button color="primary"
+                [disabled]="!this.isAdmin()"
+                (click)="edit()">Modifier</button>
+            </a>
+            &nbsp;
+            <a>
+                <button mat-raised-button color="warn"
+                [disabled]="!this.isAdmin()"
+                (click)="delete()">Supprimer</button>
+            </a>
+        </nav>
+          <small *ngIf="!this.isAdmin()" style="color: red">Vous n'avez pas les droits pour modifier ou supprimer ce devoir</small>
+      </mat-card-content>
+  </mat-card>
+</div>

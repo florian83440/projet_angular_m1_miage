@@ -1,4 +1,5 @@
-<div>
+<h3>Nouveau devoir :</h3>
+<div style="width: 50%; margin-left: 25%;">
     <br>
     <form ngForm (submit)="onSubmit($event);assignmentForm.reset();"
      #assignmentForm
@@ -23,6 +24,7 @@
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
-    <button mat-stroked-button color="primary">Ajouter devoir</button>
+    <br>
+    <button mat-stroked-button color="primary">Ajouter le devoir</button>
     </form>
 </div>

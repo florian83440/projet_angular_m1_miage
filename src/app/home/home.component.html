@@ -1,5 +1,46 @@
-<div style="text-align: center; padding-top: 25vh;">
+<div style="text-align: center;">
+    <h1>Action rapides</h1>
     <a mat-raised-button mat-button routerLink="/list-assignment">Liste des devoirs</a>
     &nbsp;
     <a mat-raised-button mat-button routerLink="/add-assignment">Ajouter un devoir</a>
+</div>
+<div style="text-align: center; width: 100%; padding-top: 5vh;">
+    <h1>Tableau de bord</h1>
+    <span class="card">
+        <h3>Nombre de devoirs</h3>
+        <hr>
+        <div class="card-content">
+            <h2>{{getNombreAssignments()}}</h2>
+        </div>
+    </span>
+    <span class="card">
+        <h3 style="color: red;">Devoirs non rendus</h3>
+        <hr>
+        <div class="card-content">
+            <h2>{{getNombreAssignmentsNonRendus()}}</h2>
+        </div>
+    </span>
+    <span class="card">
+        <h3 style="color: green">Devoirs rendus</h3>
+        <hr>
+        <div class="card-content">
+            <h2>{{getNombreAssignmentsRendus()}}</h2>
+        </div>
+    </span>
+    <hr class="separator">
+    <span class="card">
+        <h3>Devoirs de la matière 1</h3>
+        <hr>
+        <div class="card-content">
+            <h2>{{getNombreAssignmentsBySubject(1)}}</h2>
+        </div>
+    </span>
+    <hr class="separator">
+    <span class="card" *ngFor="let teacher of getTeachers()">
+        <h3>Devoirs de l'enseignant {{teacher.nom}}</h3>
+        <hr>
+        <div class="card-content">
+            <h2>{{getNombreAssignmentsByTeacher(teacher.id)}}</h2>
+        </div>
+    </span>
 </div>

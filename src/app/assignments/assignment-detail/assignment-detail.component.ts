@@ -3,6 +3,7 @@ import { Assignment } from '../assignment.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AssignmentService } from '../../shared/assignments.service';
 import { UserService } from '../../shared/user.service';
+import { SnackBarService } from '../../shared/snackbar.service';
 
 @Component({
     selector: 'app-assignment-detail',
@@ -13,7 +14,7 @@ export class AssignmentDetailComponent implements OnInit {
 
     assignmentTransmis?: Assignment;
 
-    constructor(private assignmentService: AssignmentService, private route: ActivatedRoute, private router: Router, private userService:UserService) { }
+    constructor(private assignmentService: AssignmentService, private route: ActivatedRoute, private router: Router, private userService:UserService, private snackBarService: SnackBarService) { }
 
     ngOnInit() {
         this.getAssignment();
@@ -21,7 +22,7 @@ export class AssignmentDetailComponent implements OnInit {
 
     getAssignment() {
         const id = +this.route.snapshot.params['id'];
-        this.assignmentService.getAssignment(id)
+        this.assignmentService.getAssignmentAPI(id)
             .subscribe(assignment => this.assignmentTransmis = assignment);
     }
 
@@ -34,6 +35,9 @@ export class AssignmentDetailComponent implements OnInit {
         this.assignmentTransmis ? this.assignmentService.deleteAssignment(this.assignmentTransmis) : '';
 
         this.router.navigate(["/home"])
+
+        this.snackBarService.openSnackBar('Devoir supprimé !', 'Fermer');
+
     }
 
     onAsssignmentRendu() {
@@ -41,6 +45,8 @@ export class AssignmentDetailComponent implements OnInit {
         this.assignmentTransmis ? this.assignmentService.updateAssignment(this.assignmentTransmis) : '';
 
         this.router.navigate(["/home"])
+
+        this.snackBarService.openSnackBar('Devoir rendu !', 'Fermer');
     }
 
     public isAdmin():boolean {

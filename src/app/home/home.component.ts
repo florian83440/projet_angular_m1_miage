@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import {AssignmentService} from "../shared/assignments.service";
+import {TeacherService} from "../shared/teacher.service";
 
 @Component({
   selector: 'app-home',
@@ -6,5 +8,34 @@ import { Component } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
+  constructor(private assignmentService: AssignmentService, private teacherService: TeacherService) {}
+
+  ngOnInit() {
+    this.assignmentService.getAssignmentsAPI();
+  }
+
+  getNombreAssignments(): number{
+    return this.assignmentService.getAssignments().length;
+  }
+
+  getNombreAssignmentsRendus(): number {
+    return this.assignmentService.getAssignmentsRendus().length
+  }
+
+  getNombreAssignmentsNonRendus(): number {
+    return this.assignmentService.getAssignmentsNonRendus().length
+  }
+
+  getNombreAssignmentsByTeacher(teacher_id:number): number {
+    return this.assignmentService.getAssignmentsByTeacher(teacher_id).length
+  }
+
+  getNombreAssignmentsBySubject(subject_id:number): number {
+    return this.assignmentService.getAssignmentsBySubject(subject_id).length
+  }
+
+  getTeachers(){
+    return this.teacherService.getTeachers();
+  }
 
 }

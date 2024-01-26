@@ -19,16 +19,8 @@ export class SidebarComponent {
             lib: "Ajout d'un devoir"
         },
         {
-            link: '/list-assignment',
-            lib: "Modification d'un devoir"
-        },
-        {
-            link: '/list-assignment',
-            lib: "Suppression d'un devoir"
-        },
-        {
-            link: '/list-assignment',
-            lib: "Génération de données de test"
+            link: '/teacher',
+            lib: "Paramétrage des enseignants"
         },
     ];
 

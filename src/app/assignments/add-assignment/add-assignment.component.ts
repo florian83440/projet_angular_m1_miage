@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Assignment } from '../assignment.model';
 import { AssignmentService } from '../../shared/assignments.service';
+import { Router } from '@angular/router';
+import { SnackBarService } from '../../shared/snackbar.service';
 
 @Component({
   selector: 'app-add-assignment',
@@ -17,8 +19,8 @@ export class AddAssignmentComponent {
   dateDeRendu?:Date=undefined;
 
 
-  constructor (private assignmentService:AssignmentService){}
-  
+  constructor(private assignmentService: AssignmentService, private router: Router, private snackBarService: SnackBarService) {}
+
   ngOnInit(): void{}
 
   onSubmit(event:any) {
@@ -29,8 +31,14 @@ export class AddAssignmentComponent {
       a.dateDeRendu = this.dateDeRendu;
 
     a.rendu = false;
+    a.matiere_id = 1;
+    a.enseignant_id = 1;
 
     this.assignmentService.addAssignment(a);
+
+    this.router.navigate(['/list-assignment']); // Adjust the route as per your application's routing configuration
+    this.snackBarService.openSnackBar('Devoir ajouté !', 'Fermer');
+
   }
 
 }

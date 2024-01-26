@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Assignment } from "../assignments/assignment.model";
-import { Observable, of } from "rxjs";
+import {catchError, Observable, of, throwError} from "rxjs";
+import { HttpClient } from "@angular/common/http";
 
 @Injectable({
     providedIn: 'root'
@@ -10,38 +11,55 @@ export class AssignmentService{
     
     nextId = 1;
 
+    url = "http://localhost:8010/api/assignments";
+
     assignments: Assignment[] = [];
     assignmentsMap: Map<number, Assignment> = new Map<number, Assignment>();
     
-    constructor(){
+    constructor(private http:HttpClient){}
 
-        this.assignmentsMap.set(1, {
-            id: 1,
-            nom: 'Devoir Angular de Buffa',
-            dateDeRendu: new Date('2023-09-30'),
-            rendu: false,
-        });
-        this.assignmentsMap.set(2, {
-            id: 2,
-            nom: 'Devoir SQL de Mopolo',
-            dateDeRendu: new Date('2023-10-30'),
-            rendu: false,
-        });
-        this.assignmentsMap.set(3, {
-            id: 3,
-            nom: 'Devoir gestion de Tunsi',
-            dateDeRendu: new Date('2023-08-30'),
-            rendu: true,
-        });
-        this.nextId = 4;
-        this.setAssignmentArray();
-        
+    public getAssignmentsAPI(page: number = 0, limit: number = 0){
+        if(page != 0 && limit != 0){
+            const queryParams = {
+                page: page,
+                limit: limit
+            }
+            this.http.get<Assignment[]>(this.url, { params: queryParams })
+                .subscribe(assignments => {
+                    this.assignments = [];
+                    this.assignmentsMap.clear();
+
+                    assignments.forEach(assignment => {
+                        this.assignmentsMap.set(assignment.id, assignment);
+                    });
+                    this.assignments = assignments;
+                });
+        }else{
+            this.http.get<Assignment[]>(this.url)
+                .subscribe(assignments => {
+                    this.assignments = [];
+                    this.assignmentsMap.clear();
+
+                    assignments.forEach(assignment => {
+                        this.assignmentsMap.set(assignment.id, assignment);
+                    });
+                    this.assignments = assignments;
+                });
+        }
+        this.nextId = this.assignmentsMap.size+1;
     }
 
     public getAssignment(id :number):Observable<Assignment|undefined>{
         const a:Assignment|undefined = this.assignmentsMap.get(id);
 
         return of(a);
+    }
+    public getAssignmentAPI(id :number):Observable<Assignment|undefined>{
+        return this.http.get<Assignment>(this.url + "/"+ id);
+    }
+
+    getAssignmentsPagine(page: number, limit: number) {
+        this.getAssignmentsAPI(page, limit);
     }
 
     public getAssignments(){
@@ -51,11 +69,15 @@ export class AssignmentService{
     public getAssignmentsMap(){
         return this.assignmentsMap;
     }
-    
-    public addAssignment(assignment: Assignment){
+
+    public addAssignment(assignment: Assignment): Observable<any> {
         assignment.id = this.nextId++;
-        this.assignmentsMap.set(assignment.id, assignment);
-        this.setAssignmentArray();
+        return this.http.post<Assignment>(this.url, assignment).pipe(
+            catchError((error: any) => {
+                console.error('Error adding assignment', error);
+                return throwError(error);
+            })
+        );
     }
 
     public deleteAssignment(element:Assignment){
@@ -75,4 +97,22 @@ export class AssignmentService{
     private setAssignmentArray(){
         this.assignments = Array.from(this.assignmentsMap.values());
     }
+
+    public getAssignmentsRendus(): Assignment[] {
+        return this.assignments.filter(assignment => assignment.rendu);
+    }
+
+    public getAssignmentsNonRendus(): Assignment[] {
+        return this.assignments.filter(assignment => !assignment.rendu);
+    }
+
+    public getAssignmentsByTeacher(teacher_id:number): Assignment[] {
+        return this.assignments.filter(assignment => assignment.enseignant_id = 1);
+    }
+
+    public getAssignmentsBySubject(subject_id:number): Assignment[] {
+        return this.assignments.filter(assignment => assignment.matiere_id = subject_id);
+    }
+
+
 }
