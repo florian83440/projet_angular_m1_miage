@@ -26,13 +26,53 @@ export class TeacherService{
 
         this.teachersMap.set(1, {
             id: 1,
-            nom: 'Buffa',
+            nom: 'BUFFA',
             prenom: 'Michel'
         });
         this.teachersMap.set(2, {
             id: 2,
-            nom: 'Donati',
+            nom: 'DONATI',
             prenom: 'Leo'
+        });
+        this.teachersMap.set(3, {
+            id: 3,
+            nom: 'GALLI',
+            prenom: 'Gregory'
+        });
+        this.teachersMap.set(4, {
+            id: 4,
+            nom: 'WINTER',
+            prenom: 'Michel'
+        });
+        this.teachersMap.set(5, {
+            id: 5,
+            nom: 'TOUNSI',
+            prenom: 'Stéphane'
+        });
+        this.teachersMap.set(6, {
+            id: 6,
+            nom: 'MOPOLO',
+            prenom: 'Gabriel'
+        });
+        this.teachersMap.set(7, {
+            id: 7,
+            nom: 'MIRBEL',
+            prenom: 'Isabelle'
+        });
+        this.teachersMap.set(8, {
+            id: 8,
+            nom: 'ARNAUD',
+            prenom: 'Frédéric'
+        });
+        this.teachersMap.set(9, {
+            id: 9,
+            nom: 'CRESCENZO',
+            prenom: 'Pierre'
+        });
+        this.teachersMap.set(10, {
+            id: 10,
+            nom: 'BARET',
+            prenom: 'Emanuelle'
         });
 
         this.setTeacherArray();
@@ -50,7 +90,7 @@ export class TeacherService{
 
     public getTeacherName(id :number):Observable<string | undefined>{
         const a:Teacher|undefined = this.teachersMap.get(id);
-        return of(a?.nom);
+        return of(a?.prenom + ' ' + a?.nom);
     }
 
     public getTeachers(){

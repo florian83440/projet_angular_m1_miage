@@ -10,6 +10,12 @@ import { HttpClient } from "@angular/common/http";
 export class AssignmentService{
     
     nextId = 1;
+    totalDocs: any;
+    totalPages: any;
+    hasPrevPage: any;
+    prevPage: any;
+    hasNextPage: any;
+    nextPage: any;
 
     url = "http://localhost:8010/api/assignments";
 
@@ -58,16 +64,17 @@ export class AssignmentService{
         return this.http.get<Assignment>(this.url + "/"+ id);
     }
 
-    getAssignmentsPagine(page: number, limit: number) {
-        this.getAssignmentsAPI(page, limit);
+
+    getAssignmentsPagine(page: number, limit: number): Observable<any> {
+        const queryParams = {
+            page: page,
+            limit: limit,
+        }
+        return this.http.get<any>(this.url, { params: queryParams });
     }
 
     public getAssignments(){
         return this.assignments;
-    }
-
-    public getAssignmentsMap(){
-        return this.assignmentsMap;
     }
 
     public addAssignment(assignment: Assignment): Observable<any> {
@@ -113,6 +120,5 @@ export class AssignmentService{
     public getAssignmentsBySubject(subject_id:number): Assignment[] {
         return this.assignments.filter(assignment => assignment.matiere_id = subject_id);
     }
-
 
 }

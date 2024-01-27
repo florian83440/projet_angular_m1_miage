@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Assignment } from './assignment.model';
 import { AssignmentService } from '../shared/assignments.service';
 import { LoginService } from '../shared/login.service';
 import { TeacherService } from "../shared/teacher.service";
+import { SubjectService } from "../shared/subject.service";
+import {Assignment} from "./assignment.model";
 
 @Component({
     selector: 'app-assignments',
@@ -13,22 +14,63 @@ import { TeacherService } from "../shared/teacher.service";
 export class AssignmentsComponent implements OnInit {
 
     page: number = 1;
-    limit: number = 1;
+    limit: number = 10;
+    totalDocs: any;
+    totalPages: any;
+    hasPrevPage: any;
+    prevPage: any;
+    hasNextPage: any;
+    nextPage: any;
+    assignments: any;
 
-    constructor (private teacherService:TeacherService, protected assignmentService:AssignmentService, private loginService:LoginService){}
-
-    assignments:Assignment[] = [];
-
-    public getDataSource(){
-        return this.assignments;
-    }
+    constructor (private subjectService:SubjectService, private teacherService:TeacherService, protected assignmentService:AssignmentService, private loginService:LoginService){}
 
     ngOnInit() {
-        this.assignmentService.getAssignmentsAPI(this.page, this.limit);
+        this.assignmentService.getAssignmentsPagine(this.page, this.limit)
+            .subscribe(data => {
+                this.assignments = data;
+            });
     }
-        updateList(event: any) {
-            this.assignmentService.getAssignmentsAPI(event.pageIndex + 1, event.pageSize);
-        }
+    updateList(event: any) {
+        this.assignmentService.getAssignmentsAPI(event.pageIndex + 1, event.pageSize);
+    }
+
+    getDataByPage(page: number, limit: number) {
+        this.assignmentService.getAssignmentsPagine(page, limit)
+            .subscribe(data => {
+                console.log(data)
+                this.assignments = data.docs;
+                this.page = data.page;
+                this.limit = data.limit;
+                this.totalDocs = data.totalDocs;
+                this.totalPages = data.totalPages;
+                this.hasPrevPage = data.hasPrevPage;
+                this.prevPage = data.prevPage;
+                this.hasNextPage = data.hasNextPage;
+                this.nextPage = data.nextPage;
+            });
+    }
+
+    updateAssignmentsTable() {
+        this.assignmentService.getAssignmentsPagine(this.page, this.limit)
+            .subscribe(data => {
+                this.assignments = data.docs;
+                this.page = data.page;
+                this.limit = data.limit;
+                this.totalDocs = data.totalDocs;
+                this.totalPages = data.totalPages;
+                this.hasPrevPage = data.hasPrevPage;
+                this.prevPage = data.prevPage;
+                this.hasNextPage = data.hasNextPage;
+                this.nextPage = data.nextPage;
+            });
+    }
+
+    updatePage(event: any) {
+        console.log(event.pageIndex + 1);
+        console.log(event.pageSize);
+        this.getDataByPage(event.pageIndex + 1, event.pageSize);
+    }
 
     isUserConnected(){
         return this.loginService.isLogged();
@@ -42,6 +84,14 @@ export class AssignmentsComponent implements OnInit {
 
         return returnName;
     }
+    getSubjectLibelle(matiere_id: number) {
+        var returnName: string | undefined = "";
+
+        this.subjectService.getSubjectLibelle(matiere_id)
+            .subscribe(matiereLibelle => returnName = matiereLibelle);
+
+        return returnName;
+    }
 
     public getPage(){
         return this.page;
@@ -52,6 +102,7 @@ export class AssignmentsComponent implements OnInit {
     }
 
     public getAssignments(){
-        return this.assignmentService.getAssignments();
+        console.log(this.assignments)
+        return this.assignments;
     }
 }

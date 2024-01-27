@@ -35,9 +35,10 @@ import { loginGuard } from './shared/login.guard';
 import { HomeComponent } from './home/home.component';
 import { AuthComponent } from './auth/auth.component';
 import { UserComponent } from './user/user.component';
-import {MatTableModule} from "@angular/material/table";
+import { MatTableModule } from "@angular/material/table";
 import { TeacherComponent } from './teacher/teacher.component';
-import {MatPaginatorModule} from "@angular/material/paginator";
+import { SubjectComponent } from './subject/subject.component';
+import { MatPaginatorModule } from "@angular/material/paginator";
 
 const routes: Routes = [
     {
@@ -71,6 +72,14 @@ const routes: Routes = [
     {
         'path': 'teacher',
         component: TeacherComponent
+    },
+    {
+        'path': 'subject',
+        component: SubjectComponent
+    },
+    {
+        'path': 'student',
+        component: SubjectComponent
     }
 ]
 
@@ -88,7 +97,8 @@ const routes: Routes = [
         HomeComponent,
         AuthComponent,
         UserComponent,
-        TeacherComponent
+        TeacherComponent,
+        SubjectComponent
     ],
     imports: [
         BrowserModule,

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { SidebarToggleService } from '../shared/sidebar-toggle.service';
 import { Menu } from './menu.model';
+import { UserService } from "../shared/user.service";
 
 @Component({
     selector: 'app-sidebar',
@@ -9,24 +10,46 @@ import { Menu } from './menu.model';
 })
 export class SidebarComponent {
 
-    menu: Menu[] = [
+    menus: Menu[] = [
         {
             link: '/list-assignment',
-            lib: "Liste des devoirs"
+            lib: "Liste des devoirs",
+            admin: false
         },
         {
             link: '/add-assignment',
-            lib: "Ajout d'un devoir"
+            lib: "Ajout d'un devoir",
+            admin: true
         },
         {
             link: '/teacher',
-            lib: "Paramétrage des enseignants"
+            lib: "Paramétrage des enseignants",
+            admin: true
+        },
+        {
+            link: '/subject',
+            lib: "Paramétrage des matières",
+            admin: true
+        },
+        {
+            link: '/student',
+            lib: "Paramétrage des élèves",
+            admin: true
         },
     ];
 
-    constructor(public sidebarToggleService: SidebarToggleService) { }
+    constructor(protected sidebarToggleService: SidebarToggleService, private userService: UserService) { }
 
-    isSidebarOpen() {
-        return this.sidebarToggleService.isOpen;
+    public isAdmin():boolean {
+        return this.userService.isUserAdmin();
     }
+
+    getMenuAdmin(isAdmin: boolean): Menu[] {
+        if (isAdmin) {
+            return this.menus.filter(item => item.admin);
+        } else {
+            return this.menus;
+        }
+    }
+
 }
