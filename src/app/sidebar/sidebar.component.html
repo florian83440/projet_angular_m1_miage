@@ -1,5 +1,5 @@
 <mat-sidenav-container style="background-color: rgba(255,255,255,0);">
-    <mat-sidenav #sidenav mode="side" [opened]="sidebarToggleService.isOpen" class="sidebar">
+    <mat-sidenav #sidenav mode="side" [opened]="sidebarToggleService.isOpen" class="sidebar" style="position: fixed;">
         <div>
             <ul>
                 <li *ngFor="let m of this.getMenuAdmin(false)" routerLink="{{m.link}}" (click)="sidebarToggleService.toggleSidebar();">

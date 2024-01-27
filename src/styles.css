@@ -6,7 +6,7 @@ body {
 body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
-    background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url("/assets/images/bg.jpg") no-repeat center;
+    background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url("/assets/images/bg.jpg") no-repeat fixed center;
 }
 h1, h2{
     color: rgba(36, 123, 136);

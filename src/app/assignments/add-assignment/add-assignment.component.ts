@@ -3,6 +3,8 @@ import { Assignment } from '../assignment.model';
 import { AssignmentService } from '../../shared/assignments.service';
 import { Router } from '@angular/router';
 import { SnackBarService } from '../../shared/snackbar.service';
+import {SubjectService} from "../../shared/subject.service";
+import {TeacherService} from "../../shared/teacher.service";
 
 @Component({
   selector: 'app-add-assignment',
@@ -17,9 +19,11 @@ export class AddAssignmentComponent {
   // pour le formulaire
   nomDevoir=""
   dateDeRendu?:Date=undefined;
+  matiere_id?:Number;
+  enseignant_id?:Number;
 
 
-  constructor(private assignmentService: AssignmentService, private router: Router, private snackBarService: SnackBarService) {}
+  constructor(protected subjectService: SubjectService, protected teacherService: TeacherService,private assignmentService: AssignmentService, private router: Router, private snackBarService: SnackBarService) {}
 
   ngOnInit(): void{}
 
@@ -31,7 +35,7 @@ export class AddAssignmentComponent {
       a.dateDeRendu = this.dateDeRendu;
 
     a.rendu = false;
-    a.matiere_id = 1;
+    a.matiere_id = this.matiere_id;
     a.enseignant_id = 1;
 
     this.assignmentService.addAssignment(a);

@@ -74,7 +74,7 @@ export class AssignmentService{
     }
 
     public getAssignments(){
-        return this.assignments;
+        return this.http.get<any>(this.url);
     }
 
     public addAssignment(assignment: Assignment): Observable<any> {
@@ -105,12 +105,12 @@ export class AssignmentService{
         this.assignments = Array.from(this.assignmentsMap.values());
     }
 
-    public getAssignmentsRendus(): Assignment[] {
-        return this.assignments.filter(assignment => assignment.rendu);
+    public getAssignmentsRendus() {
+        return this.http.get<any>(this.url);
     }
 
-    public getAssignmentsNonRendus(): Assignment[] {
-        return this.assignments.filter(assignment => !assignment.rendu);
+    public getAssignmentsNonRendus() {
+        return this.http.get<any>(this.url);
     }
 
     public getAssignmentsByTeacher(teacher_id:number): Assignment[] {

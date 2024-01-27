@@ -24,6 +24,27 @@
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
+
+    <mat-form-field>
+        <mat-label> Matière : </mat-label>
+        <select matNativeControl
+               [(ngModel)]="matiere_id"
+               name="matiere_id"
+        >
+            <option *ngFor="let m of this.subjectService.getSubjects()" value="{{m.id}}">{{m.libelle}}</option>
+        </select>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label> Enseignant : </mat-label>
+        <select matNativeControl
+                [(ngModel)]="enseignant_id"
+                name="enseignant_id"
+        >
+            <option *ngFor="let t of this.teacherService.getTeachers()" value="{{t.id}}">{{t.nom + ' ' + t.prenom}}</option>
+        </select>
+    </mat-form-field>
+
     <br>
     <button mat-stroked-button color="primary">Ajouter le devoir</button>
     </form>

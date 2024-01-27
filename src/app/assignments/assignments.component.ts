@@ -4,6 +4,7 @@ import { LoginService } from '../shared/login.service';
 import { TeacherService } from "../shared/teacher.service";
 import { SubjectService } from "../shared/subject.service";
 import {Assignment} from "./assignment.model";
+import {MatTableDataSource, MatTableDataSourcePaginator} from "@angular/material/table";
 
 @Component({
     selector: 'app-assignments',
@@ -22,13 +23,23 @@ export class AssignmentsComponent implements OnInit {
     hasNextPage: any;
     nextPage: any;
     assignments: any;
+    dataSource!: MatTableDataSource<Assignment>;
 
     constructor (private subjectService:SubjectService, private teacherService:TeacherService, protected assignmentService:AssignmentService, private loginService:LoginService){}
 
     ngOnInit() {
         this.assignmentService.getAssignmentsPagine(this.page, this.limit)
             .subscribe(data => {
-                this.assignments = data;
+                this.assignments = data.docs;
+                this.dataSource = new MatTableDataSource<Assignment>(this.assignments);
+                this.page = data.page;
+                this.limit = data.limit;
+                this.totalDocs = data.totalDocs;
+                this.totalPages = data.totalPages;
+                this.hasPrevPage = data.hasPrevPage;
+                this.prevPage = data.prevPage;
+                this.hasNextPage = data.hasNextPage;
+                this.nextPage = data.nextPage;
             });
     }
     updateList(event: any) {
@@ -40,6 +51,7 @@ export class AssignmentsComponent implements OnInit {
             .subscribe(data => {
                 console.log(data)
                 this.assignments = data.docs;
+                this.dataSource = new MatTableDataSource<Assignment>(this.assignments);
                 this.page = data.page;
                 this.limit = data.limit;
                 this.totalDocs = data.totalDocs;
