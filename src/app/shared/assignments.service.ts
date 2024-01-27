@@ -17,7 +17,8 @@ export class AssignmentService{
     hasNextPage: any;
     nextPage: any;
 
-    url = "http://localhost:8010/api/assignments";
+    // url = "http://localhost:8010/api/assignments";
+    url = "https://assignment-back-c0dfe7c8382c.herokuapp.com/api/assignments";
 
     assignments: Assignment[] = [];
     assignmentsMap: Map<number, Assignment> = new Map<number, Assignment>();
