@@ -58,6 +58,7 @@ Le projet est hébergé sur Heroku aux adresses mentionnées ci-dessus. Les donn
 Le bouton Set Data sur la home page sert à insérer 1000 données en base ! (à utiliser avec modération s'il vous plaît :))
 
 Les login/password sont en dur dans le code
+
 Compte admin
 login : admin
 password : 1234
