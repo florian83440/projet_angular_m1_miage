@@ -24,25 +24,25 @@ export class TeacherService{
             id: 2,
             nom: 'DONATI',
             prenom: 'Leo',
-            image_id: 1
+            image_id: 2
         });
         this.teachersMap.set(3, {
             id: 3,
             nom: 'GALLI',
             prenom: 'Gregory',
-            image_id: 1
+            image_id: 3
         });
         this.teachersMap.set(4, {
             id: 4,
             nom: 'WINTER',
             prenom: 'Michel',
-            image_id: 1
+            image_id: 4
         });
         this.teachersMap.set(5, {
             id: 5,
             nom: 'TOUNSI',
             prenom: 'Stéphane',
-            image_id: 1
+            image_id: 5
         });
         this.teachersMap.set(6, {
             id: 6,
@@ -54,19 +54,19 @@ export class TeacherService{
             id: 7,
             nom: 'MIRBEL',
             prenom: 'Isabelle',
-            image_id: 1
+            image_id: 7
         });
         this.teachersMap.set(8, {
             id: 8,
-            nom: 'ARNAUD',
+            nom: 'ARNAULT',
             prenom: 'Frédéric',
-            image_id: 1
+            image_id: 8
         });
         this.teachersMap.set(9, {
             id: 9,
             nom: 'CRESCENZO',
             prenom: 'Pierre',
-            image_id: 1
+            image_id: 9
         });
         this.teachersMap.set(10, {
             id: 10,
