@@ -50,6 +50,4 @@ Ce projet, réalisé dans le cadre du Master 1 MIAGE, a pour objectif la gestion
 ## Remarques 📌
 Le projet est hébergé sur Heroku aux adresses mentionnées ci-dessus. Les données relatives aux enseignants, étudiants et matières sont intégrées dans le code et non stockées dans une base de données MongoDB en raison de contraintes temporelles rencontrées lors du développement.
 
-**Note:** Pensez à bien installer les dépendances avant de lancer l'application.
-
-Nous vous remercions de l'intérêt porté à notre projet ! 🙌
+Le bouton Set Data sur la home page sert à insérer 1000 données en base ! (à utiliser avec modération s'il vous plaît :))
