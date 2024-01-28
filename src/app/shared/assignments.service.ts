@@ -57,11 +57,6 @@ export class AssignmentService{
         this.nextId = this.assignmentsMap.size+1;
     }
 
-    public getAssignment(id :number):Observable<Assignment|undefined>{
-        const a:Assignment|undefined = this.assignmentsMap.get(id);
-
-        return of(a);
-    }
     public getAssignmentAPI(id :number):Observable<Assignment|undefined>{
         return this.http.get<Assignment>(this.url + "/assignments" + "/"+ id);
     }
@@ -81,7 +76,7 @@ export class AssignmentService{
 
     public addAssignment(assignment: Assignment) {
         assignment.id = this.nextId++;
-        console.log(assignment);
+
         this.http.post<Assignment>(this.url + "/assignments",assignment).subscribe(
             (response) => {
                 console.log('API response:', response);
@@ -97,12 +92,17 @@ export class AssignmentService{
     }
 
     public deleteAssignmentById(id:number){
-        this.assignmentsMap.delete(id);
-        this.setAssignmentArray();
+        return this.http.delete(this.url + "/assignments" + "/"+ id);
     }
 
-    public updateAssignment(element:Assignment):Observable<string>{
-        return of("Assignment service: assignment modifié")
+    public updateAssignment(assignment:Assignment){
+        this.http.put<Assignment>(this.url + "/assignments",assignment).subscribe(
+            (response) => {
+                console.log('API response:', response);
+            },
+            (error) => {
+                console.error('API error:', error);
+            });
     }
 
     private setAssignmentArray(){
