@@ -1,0 +1,65 @@
+
+<div style="width: 50%; margin-left: 25%;">
+    <div class="container" *ngIf="assignment">
+    <h1>Edition de l'assignment {{assignment.nom}}</h1>
+    <form ngForm class="form" #formupdate (submit)="onSaveAssignment(); formupdate.reset(); ">
+        <mat-form-field>
+            <input matInput placeholder="Edition du nom" [(ngModel)]="nomDevoir" name="assignment-name">
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+            <input matInput [matDatepicker]="picker" placeholder="Edition de la date" [(ngModel)]="dateDeRendu"
+                name="date">
+            <mat-datepicker-toggle matSuffix [for]="picker">
+            </mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+            <mat-label> Matière : </mat-label>
+            <select matNativeControl
+                    [(ngModel)]="matiere_id"
+                    name="matiere_id"
+            >
+                <option *ngFor="let m of this.subjectService.getSubjects()" value="{{m.id}}">{{m.libelle}}</option>
+            </select>
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+            <mat-label> Enseignant : </mat-label>
+            <select matNativeControl
+                    [(ngModel)]="enseignant_id"
+                    name="enseignant_id"
+            >
+                <option *ngFor="let t of this.teacherService.getTeachers()" value="{{t.id}}">{{t.nom + ' ' + t.prenom}}</option>
+            </select>
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+            <mat-label> Note : </mat-label>
+            <input matInput type="number"
+                   [(ngModel)]="note"
+                   name="note"
+                   min="0"
+                   max="20"
+            >
+            <mat-hint>de 0 à 20</mat-hint>
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+            <mat-label>Commentaire : </mat-label>
+            <textarea matInput
+                      cdkTextareaAutosize
+                      #autosize="cdkTextareaAutosize"
+                      cdkAutosizeMinRows="1"
+                      cdkAutosizeMaxRows="5"
+                      [(ngModel)]="comment"
+                      name="comment"></textarea>
+        </mat-form-field>
+        <br>
+        <button mat-raised-button color="primary" [disabled]="((!nomDevoir)||(!dateDeRendu)||(!matiere_id)||(!enseignant_id)||(!comment)||(!note))">
+            Enregistrer
+        </button>
+    </form>
+    </div>
+</div>

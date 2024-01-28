@@ -3,8 +3,10 @@ import { AssignmentService } from '../shared/assignments.service';
 import { LoginService } from '../shared/login.service';
 import { TeacherService } from "../shared/teacher.service";
 import { SubjectService } from "../shared/subject.service";
+import { StudentService } from "../shared/student.service";
 import {Assignment} from "./assignment.model";
 import {MatTableDataSource, MatTableDataSourcePaginator} from "@angular/material/table";
+import {StudentComponent} from "../student/student.component";
 
 @Component({
     selector: 'app-assignments',
@@ -25,7 +27,11 @@ export class AssignmentsComponent implements OnInit {
     assignments: any;
     dataSource!: MatTableDataSource<Assignment>;
 
-    constructor (private subjectService:SubjectService, private teacherService:TeacherService, protected assignmentService:AssignmentService, private loginService:LoginService){}
+    constructor (private subjectService:SubjectService,
+                 private teacherService:TeacherService,
+                 private studentService:StudentService,
+                 protected assignmentService:AssignmentService,
+                 private loginService:LoginService){}
 
     ngOnInit() {
         this.assignmentService.getAssignmentsPagine(this.page, this.limit)
@@ -93,6 +99,14 @@ export class AssignmentsComponent implements OnInit {
 
         this.teacherService.getTeacherName(teacher_id)
             .subscribe(teacherName => returnName = teacherName);
+
+        return returnName;
+    }
+    getStudentName(student_name: number) {
+        var returnName: string | undefined = "";
+
+        this.studentService.getStudentName(student_name)
+            .subscribe(studentName => returnName = studentName);
 
         return returnName;
     }

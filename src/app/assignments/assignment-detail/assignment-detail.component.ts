@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AssignmentService } from '../../shared/assignments.service';
 import { UserService } from '../../shared/user.service';
 import { SnackBarService } from '../../shared/snackbar.service';
+import {TeacherService} from "../../shared/teacher.service";
+import {SubjectService} from "../../shared/subject.service";
 
 @Component({
     selector: 'app-assignment-detail',
@@ -14,7 +16,13 @@ export class AssignmentDetailComponent implements OnInit {
 
     assignmentTransmis?: Assignment;
 
-    constructor(private assignmentService: AssignmentService, private route: ActivatedRoute, private router: Router, private userService:UserService, private snackBarService: SnackBarService) { }
+    constructor(private assignmentService: AssignmentService,
+                private route: ActivatedRoute,
+                private router: Router,
+                private userService:UserService,
+                protected teacherService:TeacherService,
+                protected subjectService:SubjectService,
+                private snackBarService: SnackBarService) { }
 
     ngOnInit() {
         this.getAssignment();
@@ -51,5 +59,21 @@ export class AssignmentDetailComponent implements OnInit {
 
     public isAdmin():boolean {
         return this.userService.isUserAdmin();
+    }
+
+    public getTeacherName(teacher_id:number):string{
+        let name = "";
+        this.teacherService.getTeacher(teacher_id).subscribe(
+            teacher => name = teacher?.prenom + ' ' + teacher?.nom
+        )
+        return name
+    }
+
+    public getSubjectLibelle(subject_id:number):string{
+        let lib: string | undefined = "";
+        this.subjectService.getSubject(subject_id).subscribe(
+            subject => lib = subject?.libelle
+        )
+        return lib
     }
 }

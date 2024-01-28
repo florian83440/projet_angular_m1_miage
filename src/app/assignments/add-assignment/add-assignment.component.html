@@ -45,6 +45,37 @@
         </select>
     </mat-form-field>
 
+    <mat-form-field>
+        <mat-label> Auteur (étudiant) : </mat-label>
+        <select matNativeControl
+                [(ngModel)]="auteur_id"
+                name="auteur_id"
+        >
+            <option *ngFor="let s of this.studentService.getStudents()" value="{{s.id}}">{{s.nom + ' ' + s.prenom}}</option>
+        </select>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label> Note : </mat-label>
+        <input matInput type="number"
+               [(ngModel)]="note"
+               name="note"
+               min="0"
+               max="20"
+        >
+        <mat-hint>de 0 à 20</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Commentaire : </mat-label>
+        <textarea matInput
+                  cdkTextareaAutosize
+                  #autosize="cdkTextareaAutosize"
+                  cdkAutosizeMinRows="1"
+                  cdkAutosizeMaxRows="5"
+                  [(ngModel)]="comment"
+                  name="comment"></textarea>
+    </mat-form-field>
     <br>
     <button mat-stroked-button color="primary">Ajouter le devoir</button>
     </form>

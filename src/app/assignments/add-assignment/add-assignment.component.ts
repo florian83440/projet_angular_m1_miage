@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { SnackBarService } from '../../shared/snackbar.service';
 import {SubjectService} from "../../shared/subject.service";
 import {TeacherService} from "../../shared/teacher.service";
+import {StudentService} from "../../shared/student.service";
 
 @Component({
   selector: 'app-add-assignment',
@@ -17,13 +18,21 @@ export class AddAssignmentComponent {
   @Output() nouvelAssignment = new EventEmitter<Assignment>();
 
   // pour le formulaire
-  nomDevoir=""
+  nomDevoir:string=""
   dateDeRendu?:Date=undefined;
-  matiere_id?:Number;
-  enseignant_id?:Number;
+  matiere_id!:number;
+  enseignant_id!:number;
+  auteur_id!:number;
+  note?: number;
+  comment:string = "";
 
 
-  constructor(protected subjectService: SubjectService, protected teacherService: TeacherService,private assignmentService: AssignmentService, private router: Router, private snackBarService: SnackBarService) {}
+  constructor(protected subjectService: SubjectService,
+              protected teacherService: TeacherService,
+              protected studentService: StudentService,
+              private assignmentService: AssignmentService,
+              private router: Router,
+              private snackBarService: SnackBarService) {}
 
   ngOnInit(): void{}
 
@@ -35,13 +44,18 @@ export class AddAssignmentComponent {
       a.dateDeRendu = this.dateDeRendu;
 
     a.rendu = false;
+    // a.matiere_id = this.matiere_id;
+    // a.enseignant_id = this.enseignant_id;
     a.matiere_id = this.matiere_id;
-    a.enseignant_id = 1;
+    a.enseignant_id = this.enseignant_id;
+    a.auteur_id = this.auteur_id;
+    a.comment = this.comment;
+    a.note = this.note;
 
     this.assignmentService.addAssignment(a);
 
     this.router.navigate(['/list-assignment']); // Adjust the route as per your application's routing configuration
-    this.snackBarService.openSnackBar('Devoir ajouté !', 'Fermer');
+    this.snackBarService.openSnackBar('Devoir '+a.nom+' ajouté !', 'Fermer');
 
   }
 

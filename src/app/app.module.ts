@@ -30,7 +30,7 @@ import { NgIf } from '@angular/common';
 import { MatSidenavModule } from '@angular/material/sidenav';
 
 import { RouterModule, Routes } from '@angular/router';
-import { EditAssignmentComponent } from './edit-assignment/edit-assignment.component';
+import { EditAssignmentComponent } from './assignments/edit-assignment/edit-assignment.component';
 import { loginGuard } from './shared/login.guard';
 import { HomeComponent } from './home/home.component';
 import { AuthComponent } from './auth/auth.component';
@@ -39,6 +39,7 @@ import { MatTableModule } from "@angular/material/table";
 import { TeacherComponent } from './teacher/teacher.component';
 import { SubjectComponent } from './subject/subject.component';
 import { MatPaginatorModule } from "@angular/material/paginator";
+import { StudentComponent } from './student/student.component';
 
 const routes: Routes = [
     {
@@ -79,7 +80,7 @@ const routes: Routes = [
     },
     {
         'path': 'student',
-        component: SubjectComponent
+        component: StudentComponent
     }
 ]
 
@@ -98,7 +99,8 @@ const routes: Routes = [
         AuthComponent,
         UserComponent,
         TeacherComponent,
-        SubjectComponent
+        SubjectComponent,
+        StudentComponent
     ],
     imports: [
         BrowserModule,

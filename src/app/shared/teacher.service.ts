@@ -13,66 +13,66 @@ export class TeacherService{
     teachersMap: Map<number, Teacher> = new Map<number, Teacher>();
     
     constructor(){
-        //
-        // this.http.get<Teacher[]>(this.url)
-        //     .subscribe(teachers => {
-        //         this.teachersMap.clear();
-        //
-        //         teachers.forEach(teacher => {
-        //             this.teachersMap.set(teacher.id, teacher);
-        //         });
-        //         this.teachers = teachers;
-        //     });
 
         this.teachersMap.set(1, {
             id: 1,
             nom: 'BUFFA',
-            prenom: 'Michel'
+            prenom: 'Michel',
+            image_id: 1
         });
         this.teachersMap.set(2, {
             id: 2,
             nom: 'DONATI',
-            prenom: 'Leo'
+            prenom: 'Leo',
+            image_id: 1
         });
         this.teachersMap.set(3, {
             id: 3,
             nom: 'GALLI',
-            prenom: 'Gregory'
+            prenom: 'Gregory',
+            image_id: 1
         });
         this.teachersMap.set(4, {
             id: 4,
             nom: 'WINTER',
-            prenom: 'Michel'
+            prenom: 'Michel',
+            image_id: 1
         });
         this.teachersMap.set(5, {
             id: 5,
             nom: 'TOUNSI',
-            prenom: 'Stéphane'
+            prenom: 'Stéphane',
+            image_id: 1
         });
         this.teachersMap.set(6, {
             id: 6,
             nom: 'MOPOLO',
-            prenom: 'Gabriel'
+            prenom: 'Gabriel',
+            image_id: 1
         });
         this.teachersMap.set(7, {
             id: 7,
             nom: 'MIRBEL',
-            prenom: 'Isabelle'
+            prenom: 'Isabelle',
+            image_id: 1
         });
         this.teachersMap.set(8, {
             id: 8,
             nom: 'ARNAUD',
-            prenom: 'Frédéric'
+            prenom: 'Frédéric',
+            image_id: 1
         });
         this.teachersMap.set(9, {
             id: 9,
             nom: 'CRESCENZO',
-            prenom: 'Pierre'
+            prenom: 'Pierre',
+            image_id: 1
         });
         this.teachersMap.set(10, {
             id: 10,
             nom: 'BARET',
-            prenom: 'Emanuelle'
+            prenom: 'Emanuelle',
+            image_id: 1
         });
 
         this.setTeacherArray();
@@ -96,10 +96,6 @@ export class TeacherService{
     public getTeachers(){
         return this.teachers;
     }
-
-    public getTeachersMap(){
-        return this.teachersMap;
-    }
     
     public addTeacher(teacher: Teacher){
         teacher.id = this.nextId++;
@@ -115,10 +111,6 @@ export class TeacherService{
     public deleteTeacherById(id:number){
         this.teachersMap.delete(id);
         this.setTeacherArray();
-    }
-
-    public updateTeacher(element:Teacher):Observable<string>{
-        return of("Teacher service: teacher modifié")
     }
 
     private setTeacherArray(){
