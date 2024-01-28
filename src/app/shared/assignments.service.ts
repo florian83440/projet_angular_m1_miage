@@ -17,8 +17,8 @@ export class AssignmentService{
     hasNextPage: any;
     nextPage: any;
 
-    url = "http://localhost:8010/api";
-    // url = "https://angularflorianthibaultback.onrender.com/api";
+    // url = "http://localhost:8010/api";
+    url = "https://angularflorianthibaultback.onrender.com/api";
 
     assignments: Assignment[] = [];
     assignmentsMap: Map<number, Assignment> = new Map<number, Assignment>();
