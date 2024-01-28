@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AssignmentService} from "../shared/assignments.service";
-import {TeacherService} from "../shared/teacher.service";
-import {SubjectService} from "../shared/subject.service";
-import {MatTableDataSource} from "@angular/material/table";
-import {Assignment} from "../assignments/assignment.model";
+import { TeacherService } from "../shared/teacher.service";
+import { SubjectService } from "../shared/subject.service";
 
 @Component({
   selector: 'app-home',
@@ -14,12 +12,17 @@ export class HomeComponent {
   protected nbAssignments: number = 0;
   protected nbAssignmentsRendus: number = 0;
   protected nbAssignmentsNonRendus: number = 0;
-  constructor(private assignmentService: AssignmentService, private teacherService: TeacherService, private subjectService: SubjectService) {}
+  protected nbAssignmentsTeacher: any = [];
+  protected nbAssignmentsSubject: any = [];
+
+  constructor(protected assignmentService: AssignmentService, private teacherService: TeacherService, private subjectService: SubjectService) {}
 
   ngOnInit() {
     this.getNombreAssignments()
     this.getNombreAssignmentsRendus()
     this.getNombreAssignmentsNonRendus()
+    this.getNombreAssignmentsByTeacher();
+    this.getNombreAssignmentsBySubject()
   }
 
   getNombreAssignments(){
@@ -43,12 +46,24 @@ export class HomeComponent {
         });
   }
 
-  getNombreAssignmentsByTeacher(teacher_id:number): number {
-    return this.assignmentService.getAssignmentsByTeacher(teacher_id).length
+  getNombreAssignmentsByTeacher() {
+    let teachers = this.teacherService.getTeachers();
+    teachers.forEach(teacher => {
+      this.assignmentService.getAssignmentsByTeacher(teacher.id)
+          .subscribe(data => {
+            this.nbAssignmentsTeacher[teacher.id] = data.totalDocs;
+          });
+    })
   }
 
-  getNombreAssignmentsBySubject(subject_id:number): number {
-    return this.assignmentService.getAssignmentsBySubject(subject_id).length
+  getNombreAssignmentsBySubject() {
+    let subjects = this.subjectService.getSubjects();
+    subjects.forEach(subject => {
+      this.assignmentService.getAssignmentsBySubject(subject.id)
+          .subscribe(data => {
+            this.nbAssignmentsSubject[subject.id] = data.totalDocs;
+          });
+    })
   }
 
   getTeachers(){

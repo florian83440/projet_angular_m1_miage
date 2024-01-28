@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { Assignment } from "../assignments/assignment.model";
 import {catchError, Observable, of, throwError} from "rxjs";
 import { HttpClient } from "@angular/common/http";
+import {reportUnhandledError} from "rxjs/internal/util/reportUnhandledError";
 
 @Injectable({
     providedIn: 'root'
@@ -17,8 +18,8 @@ export class AssignmentService{
     hasNextPage: any;
     nextPage: any;
 
-    // url = "http://localhost:8010/api/assignments";
-    url = "https://assignment-back-c0dfe7c8382c.herokuapp.com/api/assignments";
+    url = "http://localhost:8010/api";
+    // url = "https://assignment-back-c0dfe7c8382c.herokuapp.com/api";
 
     assignments: Assignment[] = [];
     assignmentsMap: Map<number, Assignment> = new Map<number, Assignment>();
@@ -31,7 +32,7 @@ export class AssignmentService{
                 page: page,
                 limit: limit
             }
-            this.http.get<Assignment[]>(this.url, { params: queryParams })
+            this.http.get<Assignment[]>(this.url + "/assignments", { params: queryParams })
                 .subscribe(assignments => {
                     this.assignments = [];
                     this.assignmentsMap.clear();
@@ -42,7 +43,7 @@ export class AssignmentService{
                     this.assignments = assignments;
                 });
         }else{
-            this.http.get<Assignment[]>(this.url)
+            this.http.get<Assignment[]>(this.url + "/assignments")
                 .subscribe(assignments => {
                     this.assignments = [];
                     this.assignmentsMap.clear();
@@ -62,7 +63,7 @@ export class AssignmentService{
         return of(a);
     }
     public getAssignmentAPI(id :number):Observable<Assignment|undefined>{
-        return this.http.get<Assignment>(this.url + "/"+ id);
+        return this.http.get<Assignment>(this.url + "/assignments" + "/"+ id);
     }
 
 
@@ -71,21 +72,23 @@ export class AssignmentService{
             page: page,
             limit: limit,
         }
-        return this.http.get<any>(this.url, { params: queryParams });
+        return this.http.get<any>(this.url + "/assignments", { params: queryParams });
     }
 
     public getAssignments(){
-        return this.http.get<any>(this.url);
+        return this.http.get<any>(this.url + "/assignments");
     }
 
-    public addAssignment(assignment: Assignment): Observable<any> {
+    public addAssignment(assignment: Assignment) {
         assignment.id = this.nextId++;
-        return this.http.post<Assignment>(this.url, assignment).pipe(
-            catchError((error: any) => {
-                console.error('Error adding assignment', error);
-                return throwError(error);
-            })
-        );
+        console.log(assignment);
+        this.http.post<Assignment>(this.url + "/assignments",assignment).subscribe(
+            (response) => {
+                console.log('API response:', response);
+            },
+            (error) => {
+                console.error('API error:', error);
+            });
     }
 
     public deleteAssignment(element:Assignment){
@@ -107,19 +110,45 @@ export class AssignmentService{
     }
 
     public getAssignmentsRendus() {
-        return this.http.get<any>(this.url);
+        const queryParams = {
+            rendu: true
+        }
+        return this.http.get<any>(this.url + "/assignments", { params: queryParams });
     }
 
     public getAssignmentsNonRendus() {
-        return this.http.get<any>(this.url);
+        const queryParams = {
+            rendu: false
+        }
+        return this.http.get<any>(this.url + "/assignments", { params: queryParams });
     }
 
-    public getAssignmentsByTeacher(teacher_id:number): Assignment[] {
-        return this.assignments.filter(assignment => assignment.enseignant_id = 1);
+    public getAssignmentsByTeacher(teacher_id:number) {
+        const queryParams = {
+            enseignant_id: teacher_id
+        }
+        return this.http.get<any>(this.url + "/assignments", { params: queryParams });
     }
 
-    public getAssignmentsBySubject(subject_id:number): Assignment[] {
-        return this.assignments.filter(assignment => assignment.matiere_id = subject_id);
+    public getAssignmentsBySubject(subject_id:number) {
+        const queryParams = {
+            matiere_id: subject_id
+        }
+        return this.http.get<any>(this.url + "/assignments", { params: queryParams });
+    }
+
+    public setData(){
+        const data = {}; // Add your data here if needed
+
+        // Make the POST request
+        this.http.post(this.url + '/peuplerbdd', data).subscribe(
+            (response) => {
+                console.log('API response:', response);
+            },
+            (error) => {
+                console.error('API error:', error);
+            }
+        );
     }
 
 }

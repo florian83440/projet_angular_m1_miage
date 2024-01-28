@@ -3,6 +3,8 @@
     <a mat-raised-button mat-button routerLink="/list-assignment">Liste des devoirs</a>
     &nbsp;
     <a mat-raised-button mat-button routerLink="/add-assignment">Ajouter un devoir</a>
+    &nbsp;
+    <button mat-raised-button mat-button (click)="this.assignmentService.setData()">Set data</button>
 </div>
 <div style="text-align: center; width: 100%; padding-top: 5vh;">
     <h1>Tableau de bord</h1>
@@ -34,7 +36,7 @@
         <h3>Devoirs de la matière {{subject.libelle}}</h3>
         <hr>
         <div class="card-content">
-            <h2>{{getNombreAssignmentsBySubject(subject.id)}}</h2>
+            <h2>{{nbAssignmentsSubject[subject.id]}}</h2>
         </div>
     </span>
     <hr class="separator">
@@ -43,7 +45,7 @@
         <h3>Devoirs de l'enseignant {{teacher.prenom + ' ' + teacher.nom}}</h3>
         <hr>
         <div class="card-content">
-            <h2>{{getNombreAssignmentsByTeacher(teacher.id)}}</h2>
+            <h2>{{nbAssignmentsTeacher[teacher.id]}}</h2>
         </div>
     </span>
 </div>
