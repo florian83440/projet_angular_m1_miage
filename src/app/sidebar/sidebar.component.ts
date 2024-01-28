@@ -34,7 +34,7 @@ export class SidebarComponent {
         },
         {
             link: '/student',
-            lib: "Paramétrage des élèves",
+            lib: "Paramétrage des étudiants",
             admin: true
         },
     ];

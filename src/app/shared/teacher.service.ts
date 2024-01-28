@@ -80,8 +80,6 @@ export class TeacherService{
         this.nextId = this.teachersMap.size+1;
     }
 
-    // url = "http://localhost:8010/api/teachers";
-
     public getTeacher(id :number):Observable<Teacher|undefined>{
         const a:Teacher|undefined = this.teachersMap.get(id);
 
@@ -100,16 +98,6 @@ export class TeacherService{
     public addTeacher(teacher: Teacher){
         teacher.id = this.nextId++;
         this.teachersMap.set(teacher.id, teacher);
-        this.setTeacherArray();
-    }
-
-    public deleteTeacher(element:Teacher){
-        this.teachersMap.delete(element.id);
-        this.setTeacherArray();
-    }
-
-    public deleteTeacherById(id:number){
-        this.teachersMap.delete(id);
         this.setTeacherArray();
     }
 

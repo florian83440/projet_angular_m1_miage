@@ -36,6 +36,16 @@
         </mat-form-field>
         <br>
         <mat-form-field>
+            <mat-label> Étudiant : </mat-label>
+            <select matNativeControl
+                    [(ngModel)]="auteur_id"
+                    name="auteur_id"
+            >
+                <option *ngFor="let student of this.studentService.getStudents()" value="{{student.id}}">{{student.prenom + " " + student.nom}}</option>
+            </select>
+        </mat-form-field>
+        <br>
+        <mat-form-field>
             <mat-label> Note : </mat-label>
             <input matInput type="number"
                    [(ngModel)]="note"

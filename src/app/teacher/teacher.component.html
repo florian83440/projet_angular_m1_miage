@@ -17,7 +17,20 @@
         <td class="tdImg" mat-cell *matCellDef="let teacher"><img src="/assets/documents/teacher/{{ teacher.image_id }}/logo.jpg"></td>
     </ng-container>
 
+    <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef class="tdCenter" style="width: 10%;">Actions</th>
+        <td mat-cell class="tdCenter" *matCellDef="let teacher">
+            <a class="btn btn-info">
+                <mat-icon>remove_red_eye</mat-icon>
+            </a>
+            &nbsp;
+            <a class="btn btn-danger">
+                <mat-icon>delete</mat-icon>
+            </a>
+        </td>
+    </ng-container>
+
     <!-- Assign column definitions to the table -->
-    <tr mat-header-row *matHeaderRowDef="['nom', 'prenom', 'image']"></tr>
-    <tr mat-row *matRowDef="let row; columns: ['nom', 'prenom', 'image']"></tr>
+    <tr mat-header-row *matHeaderRowDef="['nom', 'prenom', 'image', 'actions']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['nom', 'prenom', 'image', 'actions']"></tr>
 </table>

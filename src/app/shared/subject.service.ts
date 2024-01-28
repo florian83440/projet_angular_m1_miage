@@ -13,16 +13,6 @@ export class SubjectService{
     subjectsMap: Map<number, Subject> = new Map<number, Subject>();
     
     constructor(){
-        //
-        // this.http.get<Subject[]>(this.url)
-        //     .subscribe(subjects => {
-        //         this.subjectsMap.clear();
-        //
-        //         subjects.forEach(subject => {
-        //             this.subjectsMap.set(subject.id, subject);
-        //         });
-        //         this.subjects = subjects;
-        //     });
 
         this.subjectsMap.set(1, {
             id: 1,
@@ -79,8 +69,6 @@ export class SubjectService{
 
         this.nextId = this.subjectsMap.size+1;
     }
-
-    // url = "http://localhost:8010/api/subjects";
 
     public getSubject(id :number):Observable<Subject|undefined>{
         const a:Subject|undefined = this.subjectsMap.get(id);

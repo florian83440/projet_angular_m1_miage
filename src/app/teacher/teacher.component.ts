@@ -23,29 +23,5 @@ export class TeacherComponent implements OnInit {
     return this.teacherService.getTeachers();
   }
 
-  getAssignementSelectionne() {
-    return this.teacherSelectionne ? this.getAssignement(this.teacherSelectionne) : undefined;
-  }
-
-  getAssignement(id: number) {
-    return this.teacherService.getTeacher(id);
-  }
-
-  teacherClique(a: Teacher) {
-    this.teacherSelectionne = a.id;
-  }
-
-  onNouvelTeacher(event: Teacher) {
-    this.teacherService.addTeacher(event);
-  }
-
-  onDeleteTeacher(element: Teacher) {
-    this.teacherService.deleteTeacher(element);
-  }
-
-  isUserConnected(){
-    return this.loginService.isLogged();
-  }
-
 }
 

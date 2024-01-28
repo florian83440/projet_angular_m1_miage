@@ -95,10 +95,6 @@ export class StudentService{
     public getStudents(){
         return this.students;
     }
-
-    public getStudentsMap(){
-        return this.studentsMap;
-    }
     
     public addStudent(student: Student){
         student.id = this.nextId++;
@@ -109,15 +105,6 @@ export class StudentService{
     public deleteStudent(element:Student){
         this.studentsMap.delete(element.id);
         this.setStudentArray();
-    }
-
-    public deleteStudentById(id:number){
-        this.studentsMap.delete(id);
-        this.setStudentArray();
-    }
-
-    public updateStudent(element:Student):Observable<string>{
-        return of("Student service: student modifié")
     }
 
     private setStudentArray(){

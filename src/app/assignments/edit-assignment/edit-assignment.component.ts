@@ -4,7 +4,7 @@ import { Assignment } from '../assignment.model';
 import { AssignmentService } from '../../shared/assignments.service';
 import {SubjectService} from "../../shared/subject.service";
 import {TeacherService} from "../../shared/teacher.service";
-import {Snackbar} from "../../app.module";
+import {StudentService} from "../../shared/student.service";
 import {SnackBarService} from "../../shared/snackbar.service";
 
 @Component({
@@ -25,10 +25,10 @@ export class EditAssignmentComponent implements OnInit {
 
  constructor(   protected subjectService: SubjectService,
                 protected teacherService: TeacherService,
-               private assignmentsService: AssignmentService,
-               private snackbarService: SnackBarService,
-               private route: ActivatedRoute,
-               private router: Router
+                protected studentService: StudentService,
+                private assignmentsService: AssignmentService,
+                private route: ActivatedRoute,
+                private router: Router
  ) {}
 
  ngOnInit(): void {

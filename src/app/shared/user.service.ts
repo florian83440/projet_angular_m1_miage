@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User } from '../user/user.modele';
 import { LoginService } from './login.service';
+import {SnackBarService} from "./snackbar.service";
 
 @Injectable({
     providedIn: 'root'
@@ -13,7 +14,8 @@ export class UserService {
     usersMap: Map<number, User> = new Map<number, User>();
     private isAdmin :boolean = false;
 
-    constructor(private loginService: LoginService){
+    constructor(private loginService: LoginService,
+                private snackBarService:SnackBarService){
         
         this.usersMap.set(1, {
             id: 1,
@@ -31,10 +33,10 @@ export class UserService {
         this.setUserArray();
     }
 
-    public getUser(id :number){
-        const u = this.usersMap.get(id);
-        return u;
-    }
+    // public getUser(id :number){
+    //     const u = this.usersMap.get(id);
+    //     return u;
+    // }
 
     public getLoggedUser(){
         const loggedId = this.loginService.getLoggedUser();
@@ -42,29 +44,29 @@ export class UserService {
         return u;   
     }
 
-    public getUsers(){
-        return this.users;
-    }
-
-    public getUserssMap(){
-        return this.usersMap;
-    }
-    
-    public addUser(assignment: User){
-        assignment.id = this.nextId++;
-        this.usersMap.set(assignment.id, assignment);
-        this.setUserArray();
-    }
-
-    public deleteUser(element:User){
-        this.usersMap.delete(element.id);
-        this.setUserArray();
-    }
-
-    public deleteUserById(id:number){
-        this.usersMap.delete(id);
-        this.setUserArray();
-    }
+    // public getUsers(){
+    //     return this.users;
+    // }
+    //
+    // public getUserssMap(){
+    //     return this.usersMap;
+    // }
+    //
+    // public addUser(assignment: User){
+    //     assignment.id = this.nextId++;
+    //     this.usersMap.set(assignment.id, assignment);
+    //     this.setUserArray();
+    // }
+    //
+    // public deleteUser(element:User){
+    //     this.usersMap.delete(element.id);
+    //     this.setUserArray();
+    // }
+    //
+    // public deleteUserById(id:number){
+    //     this.usersMap.delete(id);
+    //     this.setUserArray();
+    // }
 
     public checkUser(username:string, password:string){
         for (const user of this.usersMap.values()) {
@@ -79,6 +81,7 @@ export class UserService {
                 return true;
             }
         }
+        this.snackBarService.openSnackBar('Nom d\'utilisateur ou mot de passe incorrect !', 'Fermer');
         return false;    
     }
 
