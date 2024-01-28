@@ -27,32 +27,32 @@
 
     <mat-form-field>
         <mat-label> Matière : </mat-label>
-        <select matNativeControl
+        <mat-select
                [(ngModel)]="matiere_id"
                name="matiere_id"
         >
-            <option *ngFor="let m of this.subjectService.getSubjects()" value="{{m.id}}">{{m.libelle}}</option>
-        </select>
+            <mat-option *ngFor="let m of this.subjectService.getSubjects()" value="{{m.id}}">{{m.libelle}}</mat-option>
+        </mat-select>
     </mat-form-field>
 
     <mat-form-field>
         <mat-label> Enseignant : </mat-label>
-        <select matNativeControl
+        <mat-select
                 [(ngModel)]="enseignant_id"
                 name="enseignant_id"
         >
-            <option *ngFor="let t of this.teacherService.getTeachers()" value="{{t.id}}">{{t.nom + ' ' + t.prenom}}</option>
-        </select>
+            <mat-option *ngFor="let t of this.teacherService.getTeachers()" value="{{t.id}}">{{t.nom + ' ' + t.prenom}}</mat-option>
+        </mat-select>
     </mat-form-field>
 
     <mat-form-field>
         <mat-label> Auteur (étudiant) : </mat-label>
-        <select matNativeControl
+        <mat-select
                 [(ngModel)]="auteur_id"
                 name="auteur_id"
         >
-            <option *ngFor="let s of this.studentService.getStudents()" value="{{s.id}}">{{s.nom + ' ' + s.prenom}}</option>
-        </select>
+            <mat-option *ngFor="let s of this.studentService.getStudents()" value="{{s.id}}">{{s.nom + ' ' + s.prenom}}</mat-option>
+        </mat-select>
     </mat-form-field>
 
     <mat-form-field>

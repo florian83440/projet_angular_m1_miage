@@ -11,6 +11,11 @@ body {
 h1, h2{
     color: rgba(36, 123, 136);
 }
+.table{
+    max-width: 100%;
+    table-layout:fixed;
+    word-break:break-all;
+}
 .table thead tr th {
     text-align: left;
     padding: 10px;

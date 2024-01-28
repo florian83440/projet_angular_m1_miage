@@ -27,6 +27,32 @@ export class AssignmentsComponent implements OnInit {
     assignments: any;
     dataSource!: MatTableDataSource<Assignment>;
 
+    filterRendu: string = "";
+    filterValue: string = "";
+    filterData: string = "";
+    trierPar = [
+        {
+            id:"",
+            lib:"Choix..."
+        },
+        {
+            id:"matiere_id",
+            lib:"Matière"
+        },
+        {
+            id:"auteur_id",
+            lib:"Étudiant"
+        },
+        {
+            id:"enseignant_id",
+            lib:"Enseignant"
+        }
+    ]
+    choiceValeur = [{
+        id:"",
+        lib:"Choix..."
+    }]
+
     constructor (private subjectService:SubjectService,
                  private teacherService:TeacherService,
                  private studentService:StudentService,
@@ -34,28 +60,12 @@ export class AssignmentsComponent implements OnInit {
                  private loginService:LoginService){}
 
     ngOnInit() {
-        this.assignmentService.getAssignmentsPagine(this.page, this.limit)
-            .subscribe(data => {
-                this.assignments = data.docs;
-                this.dataSource = new MatTableDataSource<Assignment>(this.assignments);
-                this.page = data.page;
-                this.limit = data.limit;
-                this.totalDocs = data.totalDocs;
-                this.totalPages = data.totalPages;
-                this.hasPrevPage = data.hasPrevPage;
-                this.prevPage = data.prevPage;
-                this.hasNextPage = data.hasNextPage;
-                this.nextPage = data.nextPage;
-            });
-    }
-    updateList(event: any) {
-        this.assignmentService.getAssignmentsAPI(event.pageIndex + 1, event.pageSize);
+        this.getDataByPage(this.page, this.limit);
     }
 
     getDataByPage(page: number, limit: number) {
-        this.assignmentService.getAssignmentsPagine(page, limit)
+        this.assignmentService.getAssignmentsPagine(page, limit, this.filterRendu, this.filterValue, this.filterData)
             .subscribe(data => {
-                console.log(data)
                 this.assignments = data.docs;
                 this.dataSource = new MatTableDataSource<Assignment>(this.assignments);
                 this.page = data.page;
@@ -69,8 +79,47 @@ export class AssignmentsComponent implements OnInit {
             });
     }
 
+    setRenduFilter(event:any){
+        this.filterRendu = event.value;
+        this.updateAssignmentsTable();
+    }
+
+    setTriData(event:any){
+        this.filterData = event.value;
+        this.updateAssignmentsTable();
+    }
+
+    setTriValue(event:any){
+        this.filterValue = event.value;
+        if (this.filterValue === "matiere_id") {
+            this.choiceValeur = [
+                ...this.subjectService.getSubjects().map(data => ({
+                    id: data.id.toString(),
+                    lib: data.libelle
+                }))
+            ];
+        }
+        else if (this.filterValue === "enseignant_id") {
+            this.choiceValeur = [
+                ...this.teacherService.getTeachers().map(data => ({
+                    id: data.id.toString(),
+                    lib: data.prenom + " " + data.nom
+                }))
+            ];
+        }
+        else if (this.filterValue === "auteur_id") {
+            this.choiceValeur = [
+                ...this.studentService.getStudents().map(data => ({
+                    id: data.id.toString(),
+                    lib: data.prenom + " " + data.nom
+                }))
+            ];
+        }
+        this.filterData = "";
+    }
+
     updateAssignmentsTable() {
-        this.assignmentService.getAssignmentsPagine(this.page, this.limit)
+        this.assignmentService.getAssignmentsPagine(this.page, this.limit, this.filterRendu, this.filterValue, this.filterData)
             .subscribe(data => {
                 this.assignments = data.docs;
                 this.page = data.page;
@@ -117,18 +166,5 @@ export class AssignmentsComponent implements OnInit {
             .subscribe(matiereLibelle => returnName = matiereLibelle);
 
         return returnName;
-    }
-
-    public getPage(){
-        return this.page;
-    }
-
-    public getLimit(){
-        return this.limit;
-    }
-
-    public getAssignments(){
-        console.log(this.assignments)
-        return this.assignments;
     }
 }

@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { Assignment } from "../assignments/assignment.model";
 import {catchError, Observable, of, throwError} from "rxjs";
 import { HttpClient } from "@angular/common/http";
-import {reportUnhandledError} from "rxjs/internal/util/reportUnhandledError";
 
 @Injectable({
     providedIn: 'root'
@@ -18,8 +17,8 @@ export class AssignmentService{
     hasNextPage: any;
     nextPage: any;
 
-    // url = "http://localhost:8010/api";
-    url = "https://angularflorianthibaultback.onrender.com/api";
+    url = "http://localhost:8010/api";
+    // url = "https://angularflorianthibaultback.onrender.com/api";
 
     assignments: Assignment[] = [];
     assignmentsMap: Map<number, Assignment> = new Map<number, Assignment>();
@@ -61,12 +60,24 @@ export class AssignmentService{
         return this.http.get<Assignment>(this.url + "/assignments" + "/"+ id);
     }
 
-
-    getAssignmentsPagine(page: number, limit: number): Observable<any> {
-        const queryParams = {
-            page: page,
-            limit: limit,
+    getAssignmentsPagine(page: number, limit: number, rendu: string, value:string, data:string): Observable<any> {
+        let queryParams;
+        if (value != "" && data != ""){
+            queryParams = {
+                page: page,
+                limit: limit,
+                rendu: rendu,
+                value: value,
+                data: data
+            }
+        }else{
+            queryParams = {
+                page: page,
+                limit: limit,
+                rendu: rendu
+            }
         }
+        console.log(queryParams)
         return this.http.get<any>(this.url + "/assignments", { params: queryParams });
     }
 

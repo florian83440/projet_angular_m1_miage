@@ -26,15 +26,12 @@ export class AddAssignmentComponent {
   note?: number;
   comment:string = "";
 
-
   constructor(protected subjectService: SubjectService,
               protected teacherService: TeacherService,
               protected studentService: StudentService,
               private assignmentService: AssignmentService,
               private router: Router,
               private snackBarService: SnackBarService) {}
-
-  ngOnInit(): void{}
 
   onSubmit(event:any) {
 

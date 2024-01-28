@@ -6,6 +6,7 @@ import { UserService } from '../../shared/user.service';
 import { SnackBarService } from '../../shared/snackbar.service';
 import {TeacherService} from "../../shared/teacher.service";
 import {SubjectService} from "../../shared/subject.service";
+import {StudentService} from "../../shared/student.service";
 
 @Component({
     selector: 'app-assignment-detail',
@@ -22,6 +23,7 @@ export class AssignmentDetailComponent implements OnInit {
                 private userService:UserService,
                 protected teacherService:TeacherService,
                 protected subjectService:SubjectService,
+                protected studentService:StudentService,
                 private snackBarService: SnackBarService) { }
 
     ngOnInit() {
@@ -75,5 +77,14 @@ export class AssignmentDetailComponent implements OnInit {
             subject => lib = subject?.libelle
         )
         return lib
+    }
+
+    getStudentName(student_name: number) {
+        var returnName: string | undefined = "";
+
+        this.studentService.getStudentName(student_name)
+            .subscribe(studentName => returnName = studentName);
+
+        return returnName;
     }
 }
