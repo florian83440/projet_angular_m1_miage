@@ -15,7 +15,7 @@ Ce projet, réalisé dans le cadre du Master 1 MIAGE, a pour objectif la gestion
 ## Fonctionnalités 🚀
 1. **Liste des Devoirs**
    - Affichage de la liste complète des devoirs disponibles.
-   - Il est possible d'effectuer un tri poussé sur la liste des devoirs (je suis content de cet ajout)
+   - Il est possible d'effectuer une recherche avancé sur la liste des devoirs (je suis content de cet ajout)
 
 2. **Détails des Devoirs**
    - Consultation des détails spécifiques d'un devoir sélectionné.
