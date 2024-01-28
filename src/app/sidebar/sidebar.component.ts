@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SidebarToggleService } from '../shared/sidebar-toggle.service';
 import { Menu } from './menu.model';
 import { UserService } from "../shared/user.service";
@@ -8,6 +8,7 @@ import { UserService } from "../shared/user.service";
     templateUrl: './sidebar.component.html',
     styleUrls: ['./sidebar.component.css']
 })
+
 export class SidebarComponent {
 
     menus: Menu[] = [
@@ -38,18 +39,31 @@ export class SidebarComponent {
         },
     ];
 
+    menuToShow: Menu[] = [];
+
     constructor(protected sidebarToggleService: SidebarToggleService, private userService: UserService) { }
 
+    ngOnInit() {
+        this.setMenuAdmin();
+    }
     public isAdmin():boolean {
         return this.userService.isUserAdmin();
     }
 
-    getMenuAdmin(isAdmin: boolean): Menu[] {
-        if (isAdmin) {
-            return this.menus.filter(item => item.admin);
-        } else {
-            return this.menus;
-        }
+    setMenuAdmin() {
+        this.menuToShow = this.menus;
+        // this.menuToShow = [];
+        // if (this.isAdmin()){
+        //     this.menuToShow = this.menus;
+        // } else {
+        //     console.log(this.isAdmin())
+        //     this.menus.forEach(item => {
+        //         if (!item.admin) {
+        //             console.log(item.lib)
+        //             this.menuToShow.push(item);
+        //         }
+        //     });
+        // }
     }
 
 }

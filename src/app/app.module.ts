@@ -58,7 +58,8 @@ const routes: Routes = [
     },
     {
         'path': 'add-assignment',
-        component: AddAssignmentComponent
+        component: AddAssignmentComponent,
+        canActivate: [loginGuard]
     },
     {
         'path': 'assignment/:id',
@@ -74,15 +75,18 @@ const routes: Routes = [
     },
     {
         'path': 'teacher',
-        component: TeacherComponent
+        component: TeacherComponent,
+        canActivate: [loginGuard]
     },
     {
         'path': 'subject',
-        component: SubjectComponent
+        component: SubjectComponent,
+        canActivate: [loginGuard]
     },
     {
         'path': 'student',
-        component: StudentComponent
+        component: StudentComponent,
+        canActivate: [loginGuard]
     }
 ]
 

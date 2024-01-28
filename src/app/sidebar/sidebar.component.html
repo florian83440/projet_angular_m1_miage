@@ -2,7 +2,7 @@
     <mat-sidenav #sidenav mode="side" [opened]="sidebarToggleService.isOpen" class="sidebar" style="position: fixed;">
         <div>
             <ul>
-                <li *ngFor="let m of this.getMenuAdmin(false)" routerLink="{{m.link}}" (click)="sidebarToggleService.toggleSidebar();">
+                <li *ngFor="let m of menuToShow" routerLink="{{m.link}}" (click)="sidebarToggleService.toggleSidebar();">
                     <a style="font-weight: bold;">{{m.lib}}</a>
                 </li>
             </ul>
