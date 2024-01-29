@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Teacher } from "../teacher/teacher.model";
 import { Observable, of } from "rxjs";
+import { HttpClient } from "@angular/common/http";
 @Injectable({
     providedIn: 'root'
 })
@@ -80,6 +81,14 @@ export class TeacherService{
         this.nextId = this.teachersMap.size+1;
     }
 
+    // public getTeachersAPI(page: any, limit: any){
+    //     let queryParams = {
+    //         page: page,
+    //         limit: limit
+    //     }
+    //     return this.http.get<any>(this.url + "/teacher", { params: queryParams });
+    // }
+
     public getTeacher(id :number):Observable<Teacher|undefined>{
         const a:Teacher|undefined = this.teachersMap.get(id);
 
@@ -92,6 +101,11 @@ export class TeacherService{
     }
 
     public getTeachers(){
+        // this.http.get<any>(this.url + "/teacher").subscribe(data =>
+        // {
+        //     console.log(data)
+        //     this.teachers = data.docs;
+        // });
         return this.teachers;
     }
     

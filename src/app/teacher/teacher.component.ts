@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Teacher } from './teacher.model';
 import { TeacherService } from '../shared/teacher.service';
-import { LoginService } from '../shared/login.service';
+import {MatTableDataSource} from "@angular/material/table";
+import {Assignment} from "../assignments/assignment.model";
 
 @Component({
   selector: 'app-teacher',
@@ -11,11 +11,13 @@ import { LoginService } from '../shared/login.service';
 
 export class TeacherComponent implements OnInit {
 
-  teacherSelectionne?: number;
-
-  constructor (private teacherService:TeacherService, private loginService:LoginService){}
+  constructor (private teacherService:TeacherService){}
 
   ngOnInit() {
+    // console.log(this.page)
+    // console.log(this.limit)
+    // this.getDataByPage(this.page, this.limit);
+    // console.log(this.teachers)
     console.log(" AVANT RENDU DE LA PAGE !");
   }
 

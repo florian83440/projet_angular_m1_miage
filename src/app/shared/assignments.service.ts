@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Assignment } from "../assignments/assignment.model";
-import {catchError, Observable, of, throwError} from "rxjs";
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { HttpClient } from "@angular/common/http";
 
 @Injectable({
@@ -17,44 +18,10 @@ export class AssignmentService{
     hasNextPage: any;
     nextPage: any;
 
-    // url = "http://localhost:8010/api";
-    url = "https://angularflorianthibaultback.onrender.com/api";
+    url = "http://localhost:8010/api";
+    // url = "https://angularflorianthibaultback.onrender.com/api";
 
-    assignments: Assignment[] = [];
-    assignmentsMap: Map<number, Assignment> = new Map<number, Assignment>();
-    
     constructor(private http:HttpClient){}
-
-    public getAssignmentsAPI(page: number = 0, limit: number = 0){
-        if(page != 0 && limit != 0){
-            const queryParams = {
-                page: page,
-                limit: limit
-            }
-            this.http.get<Assignment[]>(this.url + "/assignments", { params: queryParams })
-                .subscribe(assignments => {
-                    this.assignments = [];
-                    this.assignmentsMap.clear();
-
-                    assignments.forEach(assignment => {
-                        this.assignmentsMap.set(assignment.id, assignment);
-                    });
-                    this.assignments = assignments;
-                });
-        }else{
-            this.http.get<Assignment[]>(this.url + "/assignments")
-                .subscribe(assignments => {
-                    this.assignments = [];
-                    this.assignmentsMap.clear();
-
-                    assignments.forEach(assignment => {
-                        this.assignmentsMap.set(assignment.id, assignment);
-                    });
-                    this.assignments = assignments;
-                });
-        }
-        this.nextId = this.assignmentsMap.size+1;
-    }
 
     public getAssignmentAPI(id :number):Observable<Assignment|undefined>{
         return this.http.get<Assignment>(this.url + "/assignments" + "/"+ id);
@@ -97,27 +64,19 @@ export class AssignmentService{
             });
     }
 
-    public deleteAssignment(element:Assignment){
-        this.assignmentsMap.delete(element.id);
-        this.setAssignmentArray();
+
+    public deleteAssignmentById(id: number): Observable<any> {
+        return this.http.delete(`${this.url}/assignments/${id}`)
+            .pipe(
+                catchError(this.handleError)
+            );
     }
 
-    public deleteAssignmentById(id:number){
-        return this.http.delete(this.url + "/assignments" + "/"+ id);
-    }
-
-    public updateAssignment(assignment:Assignment){
-        this.http.put<Assignment>(this.url + "/assignments",assignment).subscribe(
-            (response) => {
-                console.log('API response:', response);
-            },
-            (error) => {
-                console.error('API error:', error);
-            });
-    }
-
-    private setAssignmentArray(){
-        this.assignments = Array.from(this.assignmentsMap.values());
+    public updateAssignment(assignment: Assignment): Observable<Assignment> {
+        return this.http.put<Assignment>(this.url + "/assignments", assignment)
+            .pipe(
+                catchError(this.handleError)
+            );
     }
 
     public getAssignmentsRendus() {
@@ -160,6 +119,11 @@ export class AssignmentService{
                 console.error('API error:', error);
             }
         );
+    }
+
+    private handleError(error: any): Observable<never> {
+        console.error('An error occurred:', error);
+        return throwError('Something went wrong, please try again later.');
     }
 
 }

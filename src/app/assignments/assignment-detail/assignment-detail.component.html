@@ -20,7 +20,7 @@
                   </tr>
                   <tr>
                       <td style="width: 25%"><h3>Étudiant</h3></td>
-                      <td>{{ this.getStudentName(assignmentTransmis.auteur_id) }}</td>
+                      <td>{{ this.getStudentName(assignmentTransmis.auteur_id ?? 0) }}</td>
                   </tr>
                   <tr>
                       <td style="width: 25%"><h3>Note</h3></td>
@@ -32,8 +32,8 @@
                   </tr>
               </table>
           </mat-card-content>
-        <mat-checkbox *ngIf="!assignmentTransmis.rendu"
-          (click)="assignmentTransmis.rendu=true"
+        <mat-checkbox *ngIf="!assignmentTransmis.rendu && this.userService.isUserAdmin()"
+          (click)="onAsssignmentRendu()"
         >
           Rendu
         </mat-checkbox>

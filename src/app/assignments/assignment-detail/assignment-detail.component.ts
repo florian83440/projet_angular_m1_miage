@@ -20,11 +20,11 @@ export class AssignmentDetailComponent implements OnInit {
     constructor(private assignmentService: AssignmentService,
                 private route: ActivatedRoute,
                 private router: Router,
-                private userService:UserService,
+                protected userService:UserService,
                 protected teacherService:TeacherService,
                 protected subjectService:SubjectService,
                 protected studentService:StudentService,
-                private snackBarService: SnackBarService) { }
+                private snackbarService: SnackBarService) { }
 
     ngOnInit() {
         this.getAssignment();
@@ -42,21 +42,37 @@ export class AssignmentDetailComponent implements OnInit {
     }
 
     delete() {
-        this.assignmentTransmis ? this.assignmentService.deleteAssignment(this.assignmentTransmis) : '';
-
-        this.router.navigate(["/home"])
-
-        this.snackBarService.openSnackBar('Devoir supprimé !', 'Fermer');
-
+        this.assignmentTransmis ? this.assignmentService.deleteAssignmentById(this.assignmentTransmis._id).subscribe(
+            () => {
+                console.log('Assignment deleted successfully');
+                this.router.navigate(["/list-assignment"])
+                this.snackbarService.openSnackBar('Devoir supprimé !', 'Fermer');
+            },
+            error => {
+                console.error('Error deleting assignment:', error);
+                this.snackbarService.openSnackBar('Erreur lors de la modification !', 'Fermer');
+                // Handle the error appropriately in your component
+            })
+            :
+            "";
     }
 
     onAsssignmentRendu() {
         this.assignmentTransmis ? this.assignmentTransmis.rendu = true : '';
-        this.assignmentTransmis ? this.assignmentService.updateAssignment(this.assignmentTransmis) : '';
+        this.assignmentTransmis ? this.assignmentService.updateAssignment(this.assignmentTransmis).subscribe(
+            () => {
+                console.log('Assignment deleted successfully');
+                this.router.navigate(['/assignment/'+this.assignmentTransmis?.id]);
 
-        this.router.navigate(["/home"])
-
-        this.snackBarService.openSnackBar('Devoir rendu !', 'Fermer');
+                this.snackbarService.openSnackBar('Devoir rendu !', 'Fermer');
+            },
+            error => {
+                console.error('Error deleting assignment:', error);
+                this.snackbarService.openSnackBar('Erreur lors de la suppression !', 'Fermer');
+                // Handle the error appropriately in your component
+            })
+    :
+        "";
     }
 
     public isAdmin():boolean {

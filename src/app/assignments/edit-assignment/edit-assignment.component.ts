@@ -21,12 +21,12 @@ export class EditAssignmentComponent implements OnInit {
     auteur_id?:number;
     note?: number;
     comment:string = "";
-    private snackBarService: any;
 
  constructor(   protected subjectService: SubjectService,
                 protected teacherService: TeacherService,
                 protected studentService: StudentService,
                 private assignmentsService: AssignmentService,
+                private snackbarService: SnackBarService,
                 private route: ActivatedRoute,
                 private router: Router
  ) {}
@@ -35,14 +35,12 @@ export class EditAssignmentComponent implements OnInit {
    this.getAssignment();
  }
  getAssignment() {
-    // on récupère l'id dans le snapshot passé par le routeur
-    // le "+" force l'id de type string en "number"
     const id = +this.route.snapshot.params['id'];
    
     this.assignmentsService.getAssignmentAPI(id).subscribe((assignment) => {
       if (!assignment) return;
       this.assignment = assignment;
-      // Pour pré-remplir le formulaire
+
       this.nomDevoir = assignment.nom;
       this.dateDeRendu = assignment.dateDeRendu;
       this.note = assignment.note;
@@ -54,15 +52,27 @@ export class EditAssignmentComponent implements OnInit {
   }
   onSaveAssignment() {
     if (!this.assignment) return;
- 
-    // on récupère les valeurs dans le formulaire
+
     this.assignment.nom = this.nomDevoir;
     this.assignment.dateDeRendu = this.dateDeRendu;
-    this.assignmentsService
-      .updateAssignment(this.assignment)
+    this.assignment.note = this.note;
+    this.assignment.comment = this.comment;
+    this.assignment.matiere_id = this.matiere_id;
+    this.assignment.enseignant_id = this.enseignant_id;
+    this.assignment.auteur_id = this.auteur_id;
 
-      this.router.navigate(['/home']);
-      this.snackBarService.openSnackBar('Devoir modifié !', 'Fermer');
+    this.assignmentsService
+      .updateAssignment(this.assignment).subscribe(
+        (updatedAssignment) => {
+            console.log('Assignment updated successfully:', updatedAssignment);
+            this.router.navigate(['/assignment/'+this.assignment?.id]);
+            this.snackbarService.openSnackBar('Devoir modifié !', 'Fermer');
+        },
+        error => {
+            console.error('Error updating assignment:', error);
+            this.snackbarService.openSnackBar('Erreur lors de la modification !', 'Fermer');
+            // Handle the error appropriately in your component
+        });
   }
  }
  
