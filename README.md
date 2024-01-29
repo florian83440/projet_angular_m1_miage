@@ -26,8 +26,8 @@ Bienvenue dans la partie backend du projet de gestion des devoirs. Ce backend a 
 Le projet vise à fournir une solution robuste pour la gestion des devoirs. Il inclut un backend API qui permet d'effectuer des opérations CRUD (Create, Read, Update, Delete) sur les données des devoirs, stockées dans une base de données MongoDB.
 
 ## Présentation
-- Vidéo de la bêta : https://drive.google.com/file/d/16AX9EQrB584bSswPNhNMdgP5DyakkrGd/view?usp=sharing(https://drive.google.com/file/d/16AX9EQrB584bSswPNhNMdgP5DyakkrGd/view?usp=sharing)
-- Vidéo de la version finale : https://drive.google.com/file/d/1tT_o9Vazl4w7fvZrqz_5XG8oa549fs5P/view?usp=sharing(https://drive.google.com/file/d/1tT_o9Vazl4w7fvZrqz_5XG8oa549fs5P/view?usp=sharing)
+- Vidéo de la bêta : https://drive.google.com/file/d/16AX9EQrB584bSswPNhNMdgP5DyakkrGd/view?usp=sharing
+- Vidéo de la version finale : https://drive.google.com/file/d/1tT_o9Vazl4w7fvZrqz_5XG8oa549fs5P/view?usp=sharing
 
 ## Fonctionnalités 🛠️
 ### 1. **Liste des Devoirs**
