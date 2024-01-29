@@ -8,8 +8,8 @@
 # Frontend Projet Angular - Gestion des Devoirs
 
 ## Auteurs 👨‍💻
-- **Florian AIME** [*Florian Aimé*](https://github.com/florian83440)
-- **Thibault CANAVAGGIO**, [*Thibault Canavaggio*](https://github.com/Canavaggio-Thibault)
+- **Florian AIME** [*@Florian Aimé*](https://github.com/florian83440)
+- **Thibault CANAVAGGIO**, [*@Thibault Canavaggio*](https://github.com/Canavaggio-Thibault)
 
 ## Description 📚
 Ce projet, réalisé dans le cadre du Master 1 MIAGE, a pour objectif la gestion des devoirs. Il offre une plateforme permettant de visualiser, ajouter, modifier et supprimer des devoirs. Les données relatives aux devoirs sont stockées dans une base de données MongoDB.
@@ -56,6 +56,7 @@ Le projet vise à fournir une solution robuste pour la gestion des devoirs. Il i
 ## Points Forts 🌟
 - Style CSS entièrement personnalisé, sans utilisation de Bootstrap ou d'autres frameworks, à l'exception d'Angular Material.
 - Utilisation d'Angular Material pour une interface utilisateur moderne et conviviale.
+- Possibilité de recherhcer des devoirs en fonction de la matière, l'enseignant ou de l'étudiant. (+ filtre Rendu Oui/Non/Tous)
 
 ## Instructions d'Installation ⚙️
 1. Cloner le projet depuis le repository.
