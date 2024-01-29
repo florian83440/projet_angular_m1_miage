@@ -27,12 +27,12 @@ Ce projet, réalisé dans le cadre du Master 1 MIAGE, a pour objectif la gestion
    - Modification des détails d'un devoir existant.
 
 5. **Suppression de Devoirs**
-   - Suppression d'un devoir de la liste.
+   - Suppression d'un devoir.
 
 6. **Gestion des Enseignants, Étudiants et Matières**
-   - Les données relatives aux enseignants, étudiants et matières sont intégrées directement dans le code (données en dur) en raison de contraintes temporelles.
+   - Les données relatives aux enseignants, étudiants et matières sont intégrées directement dans le code (données en dur), on a essayé de le faire en base mais pas le temps de terminer malheuresmement, peut-être dans une prochaine version !
      
-5. **Gestion des droits admin**
+7. **Gestion des droits admin**
    - On ne peut pas accéder à toutes les fonctionnalités si on n'est pas admin.
 
 
