@@ -12,6 +12,9 @@ Ce projet, réalisé dans le cadre du Master 1 MIAGE, a pour objectif la gestion
 - [Backend API](https://assignment-back-c0dfe7c8382c.herokuapp.com/api/assignments)
 - [Repo du back](https://github.com/florian83440/projet_angular_m1_miage_back)
 
+## Présentation
+- Vidéo de la bêta : https://drive.google.com/file/d/16AX9EQrB584bSswPNhNMdgP5DyakkrGd/view?usp=sharing(https://drive.google.com/file/d/16AX9EQrB584bSswPNhNMdgP5DyakkrGd/view?usp=sharing)
+
 ## Fonctionnalités 🚀
 1. **Liste des Devoirs**
    - Affichage de la liste complète des devoirs disponibles.
