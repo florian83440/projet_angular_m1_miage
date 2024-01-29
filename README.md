@@ -27,6 +27,7 @@ Le projet vise à fournir une solution robuste pour la gestion des devoirs. Il i
 
 ## Présentation
 - Vidéo de la bêta : https://drive.google.com/file/d/16AX9EQrB584bSswPNhNMdgP5DyakkrGd/view?usp=sharing(https://drive.google.com/file/d/16AX9EQrB584bSswPNhNMdgP5DyakkrGd/view?usp=sharing)
+- Vidéo de la version finale : https://drive.google.com/file/d/1tT_o9Vazl4w7fvZrqz_5XG8oa549fs5P/view?usp=sharing(https://drive.google.com/file/d/1tT_o9Vazl4w7fvZrqz_5XG8oa549fs5P/view?usp=sharing)
 
 ## Fonctionnalités 🛠️
 ### 1. **Liste des Devoirs**
